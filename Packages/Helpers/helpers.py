@@ -35,6 +35,77 @@ import logging
 
 import time
 from datetime import datetime
+
+from datetime import timedelta
+import bitstring
+from PyQt5 import QtGui, QtCore, uic #QtChart
+from PyQt5.QtWidgets import *
+import struct
+
+#Sleep for Qt based program. It should be used instead of time.sleep() to avoid blocking the GUI
+def qtEventSleep(sleepTime) :
+    waitUntil = QtCore.QTime.currentTime().addMSecs(sleepTime)
+    while (waitUntil > QtCore.QTime.currentTime()) :
+        #QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.ExcludeUserInputEvents, 100)
+        QApplication.processEvents(QtCore.QEventLoop.AllEvents, 100)
+        #QApplication.processEvents(QtCore.QEventLoop.ExcludeUserInputEvents, 100)
+
+
+#-------------------------------------------------------------------------------------------
+# Functions to format text into Qt HTML format
+#-------------------------------------------------------------------------------------------
+#Set text styles
+def toBold(text) :
+    return "<b>"+text+"</b>"
+def toItalic(text) :
+    return "<i>"+text+"</i>"
+def toUnderline(text) :
+    return "<u>"+text+"</u>"
+#Set colors
+def toRed(text) :
+    return "<font color=red>"+text+"</font>"
+def toBlue(text) :
+    return "<font color=blue>"+text+"</font>"
+def toBlack(text) :
+    return "<font color=black>"+text+"</font>"
+def toGrey(text) :
+    return "<font color=grey>"+text+"</font>"
+def toGreen(text) :
+    return "<font color=green>"+text+"</font>"
+def toMagenta(text) :
+    return "<font color=magenta>"+text+"</font>"
+def incFontSize(text) :
+    return "<font size=+1>"+text+"</font>"
+
+
+def toBytes(data, bytesN=None):
+    """
+    Convert integer, float, bool or string to bytes. The optional parameter
+    bytesN
+    """
+    # pack the data in bytes
+    if type(data) is int:
+        packData = struct.pack(">I", data)
+    elif type(data) is float:
+        packData = struct.pack(">f", data)
+    elif type(data) is str:
+        packData = data.encode("latin1")
+    elif type(data) is bool:
+        packData = struct.pack("?", data)
+    else:
+        logging.warning("{}: Unsupported type: {} can not be converted to bytes!".format(getFuncName(), type(data)))
+        return bytes(1)
+    # if bytesN parameter is None return the whole bytearray otherwise the N bytes of array.
+    # If bytesN is negative it counts from end to start:
+    # bytesN=-2 x01 x02 x03 x04 -> x03 x04
+    # bytesN= 3 x01 x02 x03 x04 -> x01 x02 x03
+    if (bytesN is not None):
+        if (type(bytesN) is int) and len(packData) >= abs(bytesN):
+            packData = packData[bytesN:] if bytesN < 0 else packData[0:bytesN]
+        else:
+            logging.warning("{}: Can not evaluate parameter bytesN: {}!".format(getFuncName(), bytesN))
+    return packData
+
 RSLT = namedtuple('RSLT', 'name value unit strformat comment')
 
 def getRSLTitem(data, key):
