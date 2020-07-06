@@ -22,9 +22,8 @@ if __name__ == "__main__":
 
 import numpy as np
 from scipy import stats
-from Packages.Common import DEFS_DATA_EVAL as comdefs
+from Packages.DetectorLab.Common import DEFS_DATA_EVAL as comdefs
 from collections import namedtuple
-from Packages.Helpers import Helpers
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 import re
