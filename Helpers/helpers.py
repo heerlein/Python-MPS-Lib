@@ -1,15 +1,16 @@
-'''
-MPS Python Library
+# Max-Planck-Institute for Solar System Reserach
+# 
+# Python Script Program
+#
+# Filename:     helpers.py
+# Description:  Several useful functions for Python programs
+# Author:       K. Heerlein / MPS
+# Date:         2020_07_06
+# Version:      0.1
+# History:      
+# 2020_07_06 - port to GitHub repository
+#
 
-File:       helpers.py
-Author:     K. Heerlein
-Version:    2020_07_06
-Description: 
-Several useful functions for Python scripts
-
-History:
-2020_07_06: port to GitHub repository
-'''
 
 import os
 import sys
