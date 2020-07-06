@@ -1,3 +1,19 @@
+'''
+Max-Planck-Institute for Solar System Research
+Detector Development
+
+File: Camera_Characterization_Functions.py
+Version: 2020_07_06
+Author: K. Heerlein / MPS
+Description: This file provides several commonly used functions that are used for camera characterizations
+
+History:
+2020_07_06: 
+- porting to Github, this version was the latest on my office computer, to be verified, if on SUSI2 there may be a different / better version
+
+
+'''
+
 
 
 import matplotlib.pyplot as plt
